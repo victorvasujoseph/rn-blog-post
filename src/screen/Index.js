@@ -11,8 +11,8 @@ import {
 import { Context as BlogContext } from "../context/BlogContext";
 import { Feather } from "@expo/vector-icons";
 
-const Index = () => {
-  const { state, addBlogPost } = useContext(BlogContext);
+const Index = ({ navigation }) => {
+  const { state, addBlogPost, deleteBlogPost } = useContext(BlogContext);
 
   return (
     <View>
@@ -22,10 +22,16 @@ const Index = () => {
         keyExtractor={blogPost => blogPost.title}
         renderItem={({ item }) => {
           return (
-            <View style={styles.row}>
-              <Text style={styles.post}>{item.title}</Text>
-              <Feather style={styles.icon} name="trash" />
-            </View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Show", { id: item.id})}
+            >
+              <View style={styles.row}>
+                <Text style={styles.post}>{item.title}</Text>
+                <TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
+                  <Feather style={styles.icon} name="trash" />
+                </TouchableOpacity>
+              </View>
+            </TouchableOpacity>
           );
         }}
       />
