@@ -23,7 +23,7 @@ const Index = ({ navigation }) => {
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
-              onPress={() => navigation.navigate("Show", { id: item.id})}
+              onPress={() => navigation.navigate("Show", { id: item.id })}
             >
               <View style={styles.row}>
                 <Text style={styles.post}>{item.title}</Text>
@@ -39,13 +39,17 @@ const Index = ({ navigation }) => {
   );
 };
 
+Index.navigationOptions = ({navigation}) => {
+  return {
+    headerRight: (
+      <TouchableOpacity onPress={() => navigation.navigate('Create')}>
+        <Feather name="plus" style={styles.icon} />
+      </TouchableOpacity>
+    )
+  };
+};
+
 const styles = StyleSheet.create({
-  // container: {
-  //   flex: 1,
-  //   backgroundColor: "#fff",
-  //   alignItems: "center",
-  //   justifyContent: "center"
-  // },
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -62,7 +66,8 @@ const styles = StyleSheet.create({
     fontSize: 18
   },
   icon: {
-    fontSize: 24
+    fontSize: 24,
+    marginRight: 10
   }
 });
 
