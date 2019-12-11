@@ -1,21 +1,16 @@
-import React, { useContext, useState } from "react";
+import React, { useContext,useState } from "react";
 import {
   StyleSheet,
   Text,
-  TextInput,
   View,
+  TextInput,
   TouchableOpacity,
-  Image,
-  FlatList,
   Button
 } from "react-native";
-import { Context as BlogContext } from "../context/BlogContext";
-import { Feather } from "@expo/vector-icons";
 
-const CreateScreen = ({ navigation }) => {
-  const [content, setContent] = useState("");
-  const [title, setTitle] = useState("");
-  const { addBlogPost } = useContext(BlogContext);
+const BlogPostForm = ({ onSubmit, initialValues}) => {
+  const [content, setContent] = useState(initialValues.content);
+  const [title, setTitle] = useState(initialValues.title);
 
   return (
     <View>
@@ -31,12 +26,20 @@ const CreateScreen = ({ navigation }) => {
         value={content}
         onChangeText={text => setContent(text)}
       ></TextInput>
-      <Button title="Add Post" onPress={() => addBlogPost(title, content,()=>{
-        navigation.navigate('Index');
-      })} />
+      <Button title="Save Post" onPress={()=>{
+        onSubmit(title,content);
+      }} />
     </View>
   );
 };
+
+BlogPostForm.defaultProps = {
+  initialValues: {
+    title:'',
+    content:''
+  }
+}
+
 
 const styles = StyleSheet.create({
   headerText: {
@@ -62,4 +65,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CreateScreen;
+export default BlogPostForm;
