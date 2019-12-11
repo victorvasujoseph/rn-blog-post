@@ -1,6 +1,9 @@
 import React,{useContext} from "react";
 import BlogPostForm from "../components/BlogPostForm";
 import { Context as BlogContext } from "../context/BlogContext";
+import {
+  Text
+} from "react-native";
 
 const EditScreen = ({ navigation }) => {
   const { state } = useContext(BlogContext);

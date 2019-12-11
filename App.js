@@ -18,7 +18,7 @@ const navigator = createStackNavigator(
   {
     initialRouteName: "Index",
     defaultNavigationOptions: {
-      title: "Fun App"
+      title: "Todo App"
     }
   }
 );
