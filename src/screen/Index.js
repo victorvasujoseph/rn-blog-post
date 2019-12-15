@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -12,7 +12,20 @@ import { Context as BlogContext } from "../context/BlogContext";
 import { Feather } from "@expo/vector-icons";
 
 const Index = ({ navigation }) => {
-  const { state, addBlogPost, deleteBlogPost } = useContext(BlogContext);
+  const { state, addBlogPost, deleteBlogPost, getBlogPost } = useContext(
+    BlogContext
+  );
+
+  useEffect(() => {
+    getBlogPost();
+    const listener = navigation.addListener("didFocus", () => {
+      getBlogPost();
+    });
+    // Add Clean up items when the page is COMPLETELY closed
+    return () => {
+      listener.remove();
+    };
+  }, []);
 
   return (
     <View>
@@ -39,10 +52,10 @@ const Index = ({ navigation }) => {
   );
 };
 
-Index.navigationOptions = ({navigation}) => {
+Index.navigationOptions = ({ navigation }) => {
   return {
     headerRight: (
-      <TouchableOpacity onPress={() => navigation.navigate('Create')}>
+      <TouchableOpacity onPress={() => navigation.navigate("Create")}>
         <Feather name="plus" style={styles.icon} />
       </TouchableOpacity>
     )
